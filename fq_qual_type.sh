@@ -1,3 +1,4 @@
+# aim to identify raw reads were phred 33 / phred 64
 less $1 | head -n 1000 | awk '{if(NR%4==0) printf("%s",$0);}' \
 | od -A n -t u1 -v \
 | awk 'BEGIN{min=100;max=0;} \

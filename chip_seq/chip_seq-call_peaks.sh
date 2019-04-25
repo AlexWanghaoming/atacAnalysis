@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# use conda-based epic2 to call broad peak binded by histone
+
 # make bam index
 samtools index h3K14_Ac_TBI-3d_IN_sorted.bam
 samtools index h3K14_Ac_TBI-3d_IP_sorted.bam
