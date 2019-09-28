@@ -4,7 +4,7 @@ cat bw_input.conf | while read line;do
     name=${array[2]}
     IP=${array[0]}
     IN=${array[1]}
-    bamCompare -b1 $IP -b2 $IN --scaleFactorsMethod None -p 5 --binSize 1 --normalizeUsing CPM --extendReads --ignoreDuplicates -o ${name}_log2Ratio.bw
+    bamCompare -b1 $IP -b2 $IN --scaleFactorsMethod None -p 5 --binSize 1 --normalizeUsing RPKM --extendReads --ignoreDuplicates -o ${name}_log2Ratio.bw
 done
 
 ## ATAC-seq data without INPUT bam
@@ -12,8 +12,8 @@ done
 # make index
 #ls ./rmPCR_duplicate/*_specific.bam |xargs -i samtools index {}
 
-bamCoverage --normalizeUsing CPM -b ./rmPCR_duplicate/sex-7d_uniq_specific.bam -o ./sex_coverage.bw -p 5
-bamCoverage --normalizeUsing CPM -b ./rmPCR_duplicate/hypha24h_uniq_specific.bam -o ./hypha_coverage.bw -p 5
+bamCoverage --normalizeUsing RPKM --extendReads -b ./rmPCR_duplicate/sex-7d_uniq_specific.bam -o ./sex_coverage.bw -p 5
+bamCoverage --normalizeUsing RPKM --extendReads -b ./rmPCR_duplicate/hypha24h_uniq_specific.bam -o ./hypha_coverage.bw -p 5
 
 ## plot gene body atac-seq peaks distribution using deeptools
 

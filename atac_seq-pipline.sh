@@ -28,7 +28,7 @@ RIGHT=${array[1]}
 # remove adapters if do not have adapter.fasta
 NGmerge -a -u 41 -n 15 -1 $LEFT -2 $RIGHT -o $NAME
 
-bowtie2 --very-sensitive -x ../xulab_ph1_rm_Mt.fasta -p 15 -1 ${NAME}_1.fastq.gz -2 ${NAME}_2.fastq.gz | samtools view -bS | samtools sort -o ${NAME}_sorted.bam
+bowtie2 --very-sensitive -x ../xulab_ph1_rm_Mt.fasta -p 15 -1 ${NAME}_1.fastq.gz -2 ${NAME}_2.fastq.gz | samtools sort -o ${NAME}_sorted.bam
 
 # remove PCR duplicates
 java -jar /share/nas3/xujr/local_software/picard-tools-1.119/MarkDuplicates.jar I=${NAME}_sorted.bam O=${NAME}_uniq.bam M=${NAME}_dup.txt REMOVE_DUPLICATES=true
@@ -37,5 +37,5 @@ java -jar /share/nas3/xujr/local_software/picard-tools-1.119/MarkDuplicates.jar 
 samtools view -b -q 10 ${NAME}_uniq.bam > ${NAME}_sorted_uniq_specific.bam
 
 # before call peaks use conda envs: source activate whmPy27
-macs2 callpeak -t ${NAME}_sorted_uniq_specific.bam -f BAMPE -n hypha24 --keep-dup all --nomodel --shift 100 --extsize 200 -g 36696207 --outdir ${NAME}_peaks
+macs2 callpeak -t ${NAME}_sorted_uniq_specific.bam -n hypha24 --keep-dup all --nomodel --shift -100 --extsize 200 -g 36696207 --outdir ${NAME}_peaks
 done
